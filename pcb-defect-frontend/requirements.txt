@@ -1,0 +1,23 @@
+# Core frontend
+streamlit>=1.30
+
+# YOLO / Deep Learning
+ultralytics>=8.1.0
+torch>=2.0
+opencv-python-headless
+
+# Image processing
+Pillow
+
+# Data handling
+pandas
+numpy
+
+# Visualization
+altair
+
+# Backend communication
+requests
+
+# Report generation
+reportlab
