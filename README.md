@@ -8,7 +8,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3670A0?style=for-the-badge&logo=python&logoColor=white"/>
   <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white"/>
-  <img src="https://img.shields.io/badge/YOLOv8-FF6F00?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/YOLOv8m-FF6F00?style=for-the-badge"/>
   <img src="https://img.shields.io/badge/Computer%20Vision-000000?style=for-the-badge"/>
 </p>
 
