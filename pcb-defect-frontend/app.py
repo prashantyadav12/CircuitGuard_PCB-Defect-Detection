@@ -25,7 +25,8 @@ from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib import colors
 
 # CONFIG 
-API_BATCH_URL = "http://127.0.0.1:8000/detect-batch"
+import os
+API_BATCH_URL = os.environ.get("BACKEND_URL", "https://circuitguard-pcb-defect-detection.onrender.com/detect-batch")
 MAX_IMAGE_WIDTH = 1024
 MAX_WORKERS = min(4, os.cpu_count() or 2)
 
