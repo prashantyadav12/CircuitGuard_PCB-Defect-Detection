@@ -1,4 +1,7 @@
+import os
+
 from fastapi import FastAPI, UploadFile, File
+from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 import base64
 import cv2
@@ -21,8 +24,25 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# ================= CORS =================
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],          # tighten in production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # ================= MODEL LOAD =================
-MODEL_PATH = "best.pt"   # adjust if needed
+# Prefer ONNX (lightweight, Render-friendly) → fallback to .pt (local dev)
+ONNX_PATH = "best.onnx"
+PT_PATH   = "best.pt"
+
+if os.path.exists(ONNX_PATH):
+    MODEL_PATH = ONNX_PATH      # uses onnxruntime – ~60 MB RAM
+else:
+    MODEL_PATH = PT_PATH         # uses torch – ~800 MB RAM
+
 model = YOLO(MODEL_PATH)
 class_names = model.names
 
@@ -91,3 +111,11 @@ async def detect_batch(
         })
 
     return results_payload
+
+
+# ================= ENTRY POINT =================
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
+

@@ -1,0 +1,42 @@
+# ============================================================
+# render.yaml  –  CircuitGuard deployment blueprint
+# Deploy both backend (FastAPI) and frontend (Streamlit)
+# from this single repo.
+# ============================================================
+
+services:
+  # -------------------- BACKEND (FastAPI + YOLO) --------------------
+  - type: web
+    name: circuitguard-backend
+    runtime: python
+    region: oregon                        # pick nearest region
+    rootDir: pcb-defect-backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+    healthCheckPath: /
+
+  # -------------------- FRONTEND (Streamlit) --------------------
+  - type: web
+    name: circuitguard-frontend
+    runtime: python
+    region: oregon
+    rootDir: pcb-defect-frontend
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      # IMPORTANT: After deploying the backend, set this to its URL.
+      # Example: https://circuitguard-backend.onrender.com
+      # You can also use Render's "fromService" reference (uncomment below):
+      # - key: BACKEND_URL
+      #   fromService:
+      #     name: circuitguard-backend
+      #     type: web
+      #     envVarKey: RENDER_EXTERNAL_URL
+      - key: BACKEND_URL
+        value: "https://circuitguard-backend.onrender.com"
+

@@ -1,9 +1,20 @@
+# ================= Backend Dependencies =================
+# Web framework
 fastapi
-uvicorn
+uvicorn[standard]
+
+# File upload support (required by FastAPI for UploadFile)
 python-multipart
-ultralytics
-opencv-python-headless
-numpy
+
+# YOLO / Deep Learning  (CPU-only to fit Render free tier 512 MB)
+# We use ultralytics with CPU-only torch to reduce memory.
+# --extra-index-url pulls the CPU-only torch build (~200 MB vs ~2 GB with CUDA).
 --extra-index-url https://download.pytorch.org/whl/cpu
 torch
 torchvision
+ultralytics>=8.1.0
+onnxruntime
+
+# Image processing
+opencv-python-headless
+numpy

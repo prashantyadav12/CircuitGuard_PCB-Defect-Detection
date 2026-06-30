@@ -1,0 +1,5 @@
+﻿,Defect type,Confidence,x1,y1,x2,y2
+0,missing_hole,0.75,830.3,432,851.5,450.6
+1,missing_hole,0.73,581.7,270.6,605.1,290.1
+2,missing_hole,0.73,544.9,116.9,564.3,134.7
+3,missing_hole,0.44,992.7,18.4,1007.7,33.4
